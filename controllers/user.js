@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 
 
 exports.signup = (req, res, next) => {
-    console.log(req.body);
     bcrypt.hash(req.body.password, 10) // Saler 10 fois MDP
         .then(hash => {
             const user = new User({
