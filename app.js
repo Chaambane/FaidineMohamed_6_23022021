@@ -1,14 +1,18 @@
 const express = require('express');
+const helmet = require('helmet'); // sécurité des headers
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+require('dotenv').config();
 
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
 
+const app = express();
+app.use(helmet());
 
-mongoose.connect('mongodb+srv://chaambane:So_Pekocko@cluster0.pmz2j.mongodb.net/projet6?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_MONGODBCONNECT,
   { useNewUrlParser: true,
     useUnifiedTopology: true, 
     useCreateIndex: true
@@ -16,7 +20,7 @@ mongoose.connect('mongodb+srv://chaambane:So_Pekocko@cluster0.pmz2j.mongodb.net/
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-const app = express();
+
 
 
 app.use((req, res, next) => {
