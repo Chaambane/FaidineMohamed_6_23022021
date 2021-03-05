@@ -53,21 +53,25 @@ exports.deleteSauce = (req, res, next) => {
 // Middleware like
 exports.likeSauce = (req, res, next) => {
     if(req.body.like === 1) { // L'utilisateur aime la sauce
-        Sauce.updateOne({
-          _id: req.params.id,
-          $inc: {likes: 1},
-          $push: {usersLiked: req.body.userId}, 
-        })
+        Sauce.updateOne(
+          {_id: req.params.id},
+          {
+            $inc: {likes: 1},
+            $push: {usersLiked: req.body.userId}
+          }
+        )
           .then(() => res.status(200).json({message: 'Like sauce !'}))
           .catch(error => res.status(400).json({error}));
     }
 
     if(req.body.like === -1){ // L'utilisateur n'aime pas la sauce
-        Sauce.updateOne({
-            _id: req.params.id,
-            $inc: {dislikes: 1},
-            $push: {usersDisliked: req.body.userId}
-        })
+        Sauce.updateOne(
+            {_id: req.params.id},
+            {
+              $inc: {dislikes: 1},
+              $push: {usersDisliked: req.body.userId}
+            }
+        )
         .then(() => res.status(200).json({message: 'Dislike sauce !'}))
         .catch(error => res.status(400).json({error}));
     }
@@ -79,8 +83,8 @@ exports.likeSauce = (req, res, next) => {
               Sauce.updateOne(
                 {_id: req.params.id},
                 {
-                $inc: {likes: -1},
-                $pull: {usersLiked: req.body.userId}
+                $pull: {usersLiked: req.body.userId},
+                $inc: {likes: -1}
               })
                 .then(() => res.status(200).json({message:' Like retiré !'}))
                 .catch(error => res.status(400).json({error}));
