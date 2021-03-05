@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user');
 
 
 const app = express();
-app.use(helmet());
+app.use(helmet()); // Sécurisation en-têtes HTTP
 
 mongoose.connect(process.env.DB_MONGODBCONNECT,
   { useNewUrlParser: true,

@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); // Prévenir des accès frauduleux
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
